@@ -14,7 +14,7 @@ jobs:
     - name: Restore packages
       run: nuget restore Fuse.sln
     - name: Restore DllExport
-      run: DllExport.bat -action Restore
+      run: .\DllExport.bat -action Restore
     - name: Setup MSBuild
       uses: warrenbuckley/Setup-MSBuild@v1
     - name: Build solution
