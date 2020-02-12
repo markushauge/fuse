@@ -1,0 +1,21 @@
+name: Fuse.CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup NuGet
+      uses: warrenbuckley/Setup-Nuget@v1
+    - name: Restore packages
+      run: nuget restore Fuse.sln
+    - name: Restore DllExport
+      run: DllExport.bat -action Restore
+    - name: Setup MSBuild
+      uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Build solution
+      run: msbuild Fuse.sln -p:Configuration=Release
