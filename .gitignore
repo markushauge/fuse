@@ -1,0 +1,9 @@
+# Visual Studio
+/.vs
+
+# Dependencies
+/packages
+
+# Build output
+obj
+bin
