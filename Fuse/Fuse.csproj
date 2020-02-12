@@ -22,6 +22,10 @@
     <DllExportTimeout>30000</DllExportTimeout>
     <DllExportPeCheck>2</DllExportPeCheck>
     <DllExportPatches>0</DllExportPatches>
+    <Version>0.0.1</Version>
+    <Authors>fshauge</Authors>
+    <Product>Fuse</Product>
+    <Company />
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DllExport">
