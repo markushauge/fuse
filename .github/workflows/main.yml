@@ -24,4 +24,4 @@ jobs:
     - name: Create NuGet package
       run: nuget pack (Get-Item .\Fuse\*.csproj) -Properties Configuration=Release
     - name: Push NuGet package
-      run: nuget push (Get-Item .\Fuse\**\*.nupkg) -Source "GPR" -SkipDuplicate
+      run: nuget push (Get-Item .\*.nupkg) -Source "GPR" -SkipDuplicate
