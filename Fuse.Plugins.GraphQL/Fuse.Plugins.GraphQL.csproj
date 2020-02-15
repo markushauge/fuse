@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net48</TargetFramework>
         <PlatformTarget>x64</PlatformTarget>
@@ -9,6 +9,7 @@
     <ItemGroup>
       <PackageReference Include="HotChocolate.AspNetCore" Version="10.3.5" />
       <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.3.5" />
+      <PackageReference Include="HotChocolate.Stitching" Version="10.3.5" />
       <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.2.0" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
