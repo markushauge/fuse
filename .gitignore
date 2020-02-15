@@ -10,3 +10,8 @@ bin
 
 # NuGet build packages
 *.nupkg
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
