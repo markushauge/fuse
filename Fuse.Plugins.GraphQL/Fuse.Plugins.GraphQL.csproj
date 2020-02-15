@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+        <PlatformTarget>x64</PlatformTarget>
+        <LangVersion>8.0</LangVersion>
+        <Nullable>enable</Nullable>
+        <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="HotChocolate.AspNetCore" Version="10.3.5" />
+      <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.3.5" />
+      <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.2.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Fuse\Fuse.csproj">
+          <Private>false</Private>
+        </ProjectReference>
+    </ItemGroup>
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="set OUTPUT_DIRECTORY=$(SolutionDir)Fuse.Injector\$(OutDir)Plugins\$(TargetName)&#xD;&#xA;if not exist &quot;%25OUTPUT_DIRECTORY%25&quot; mkdir &quot;%25OUTPUT_DIRECTORY%25&quot;&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll&quot; &quot;%25OUTPUT_DIRECTORY%25&quot; /D /Y" />
+    </Target>
+</Project>

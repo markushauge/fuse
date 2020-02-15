@@ -3,7 +3,7 @@ using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Fuse
+namespace Fuse.Plugins.GraphQL
 {
     public class Startup
     {
