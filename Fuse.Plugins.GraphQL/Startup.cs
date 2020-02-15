@@ -23,8 +23,8 @@ namespace Fuse.Plugins.GraphQL
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseGraphQL();
-            app.UsePlayground();
+            app.UseGraphQL("/graphql");
+            app.UsePlayground("/graphql", "/graphql");
         }
     }
 }
