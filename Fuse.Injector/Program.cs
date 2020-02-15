@@ -6,12 +6,12 @@ namespace Fuse.Injector
 {
     public static class Program
     {
-        private const string DLL = "Fuse.dll";
-        private const string TARGET = "Gw2-64";
+        private const string Dll = "Fuse.dll";
+        private const string Target = "Gw2-64";
 
         private static Process FindOrCreateProcess(string name, string[] args)
         {
-            Process[] processes = Process.GetProcessesByName(name);
+            var processes = Process.GetProcessesByName(name);
 
             if (processes.Length > 0)
             {
@@ -33,13 +33,13 @@ namespace Fuse.Injector
 
         public static void Main(string[] args)
         {
-            Process process = FindOrCreateProcess(TARGET, args);
+            var process = FindOrCreateProcess(Target, args);
 
             try
             {
-                Injector.Inject(process, DLL);
+                Injector.Inject(process, Dll);
                 Injector.SuspendProcess(process);
-                Injector.CallExport(process, DLL, "Load");
+                Injector.CallExport(process, Dll, "Load");
             }
             catch (Exception ex)
             {

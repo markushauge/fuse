@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Fuse.Extensions;
 using Fuse.Native.Win32;
@@ -9,24 +10,17 @@ namespace Fuse.Injector
 {
     public static class Injector
     {
-        private static ProcessModule? GetModule(Process process, string dll)
-        {
-            foreach (ProcessModule processModule in process.Modules)
-            {
-                if (Path.GetFileName(processModule.FileName) == dll)
-                {
-                    return processModule;
-                }
-            }
-
-            return null;
-        }
+        private static ProcessModule? GetModule(Process process, string dll) =>
+            process
+                .Modules
+                .Cast<ProcessModule>()
+                .FirstOrDefault(module => Path.GetFileName(module.FileName) == dll);
 
         private static void IterateProcessThreads(Process process, Action<IntPtr> action)
         {
             foreach (ProcessThread processThread in process.Threads)
             {
-                IntPtr threadHandle = Kernel32.OpenThread(2, false, processThread.Id);
+                var threadHandle = Kernel32.OpenThread(2, false, processThread.Id);
                 action(threadHandle);
                 Kernel32.CloseHandle(threadHandle);
             }
