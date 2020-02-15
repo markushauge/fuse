@@ -32,29 +32,46 @@ namespace Fuse.Plugin
 
         public void LoadPlugins(string directory)
         {
-            foreach (var subdirectory in Directory.GetDirectories(directory))
+            foreach (var path in Directory.GetFiles(directory))
             {
-                var file = Path.Combine(subdirectory, $"{Path.GetFileName(subdirectory)}.dll");
+                var file = Path.GetFileName(path); 
 
-                if (!File.Exists(file))
+                if (file.StartsWith("Fuse.Plugins") && file.EndsWith(".dll"))
                 {
-                    throw new Exception("Directory does not contain a plugin with matching name");
-                }
-
-                LoadPlugin(file);
-            }
-
-            foreach (var file in Directory.GetFiles(directory))
-            {
-                if (file.EndsWith(".dll"))
-                {
-                    LoadPlugin(file);
+                    LoadPlugin(path);
                 }
             }
         }
 
-        public void EnablePlugins() => _plugins.ForEach(plugin => plugin.OnEnable(this));
-        public void DisablePlugins() => _plugins.ForEach(plugin => plugin.OnDisable(this));
+        public void EnablePlugins()
+        {
+            foreach (var plugin in _plugins)
+            {
+                try
+                {
+                    plugin.OnEnable(this);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[Proxy] Failed to enable {plugin.GetType().Name}:\n{ex}");
+                }
+            }
+        }
+
+        public void DisablePlugins()
+        {
+            foreach (var plugin in _plugins)
+            {
+                try
+                {
+                    plugin.OnEnable(this);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[Proxy] Failed to disable {plugin.GetType().Name}:\n{ex}");
+                }
+            }
+        }
 
         public T? FindPlugin<T>() where T : class => FindPlugins<T>().FirstOrDefault();
         public IEnumerable<T> FindPlugins<T>() where T : class => _plugins.OfType<T>();
