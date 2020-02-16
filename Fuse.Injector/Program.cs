@@ -44,7 +44,7 @@ namespace Fuse.Injector
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Fuse.Injector");
+                MessageBox.Show(ex.ToString(), "Fuse.Injector", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 process.Kill();
             }
             finally
