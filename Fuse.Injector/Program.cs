@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Fuse.Injector
 {
     public static class Program
     {
         private const string Dll = "Fuse.dll";
-        private const string Target = "Gw2-64";
 
-        private static Process FindOrCreateProcess(string name, string[] args)
+        private static Process FindOrCreateProcess(string name, IEnumerable<string> args)
         {
             var processes = Process.GetProcessesByName(name);
 
@@ -28,12 +29,12 @@ namespace Fuse.Injector
                 return '"' + arg + '"';
             });
 
-            return Process.Start(name + ".exe", string.Join(" ", arguments));
+            return Process.Start($"{name}.exe", string.Join(" ", arguments));
         }
 
         public static void Main(string[] args)
         {
-            var process = FindOrCreateProcess(Target, args);
+            var process = FindOrCreateProcess(args.First(), args.Skip(1));
 
             try
             {
@@ -43,7 +44,8 @@ namespace Fuse.Injector
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                MessageBox.Show(ex.ToString(), "Fuse.Injector");
+                process.Kill();
             }
             finally
             {
