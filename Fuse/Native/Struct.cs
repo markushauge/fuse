@@ -17,7 +17,10 @@ namespace Fuse.Native
             }
 
             public T Create(IntPtr pointer) => Constructor(pointer);
-            public T Create(IntPtr pointer, int index) => Constructor(pointer + Size * index);
+            public T Create(IntPtr pointer, int index) =>
+                Size > 0 ?
+                Constructor(pointer + Size * index) :
+                throw new InvalidOperationException("Size cannot be zero");
         }
         
         public class Builder
@@ -71,11 +74,14 @@ namespace Fuse.Native
             public Builder AddIntPtr(out Property<IntPtr> property) =>
                 AddProperty(out property, IntPtr.Size, IntPtrExtensions.ReadIntPtr);
 
+            public Builder AddReference<T>(out Property<T> property, Factory<T> factory) =>
+                AddReference(out property, factory.Constructor);
+
             public Builder AddReference<T>(out Property<T> property, Func<IntPtr, T> constructor) =>
                 AddProperty(out property, IntPtr.Size, pointer => constructor(pointer.ReadIntPtr()));
 
-            public Builder AddStruct<T>(out Property<T> property, int size, Func<IntPtr, T> constructor) =>
-                AddProperty(out property, size, constructor);
+            public Builder AddStruct<T>(out Property<T> property, Factory<T> factory) =>
+                AddProperty(out property, factory.Size, factory.Constructor);
         }
     }
 }
