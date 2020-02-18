@@ -27,9 +27,9 @@ namespace Fuse.Native
             }
         }
 
-        private static unsafe bool Compare(byte* buffer, IList<ByteMask> byteMasks, long length)
+        private static unsafe bool Compare(byte* buffer, IList<ByteMask> byteMasks)
         {
-            for (var i = 0; i < length; i++)
+            for (var i = 0; i < byteMasks.Count; i++)
             {
                 if ((buffer[i] & byteMasks[i].Mask) != byteMasks[i].Byte)
                 {
@@ -54,14 +54,18 @@ namespace Fuse.Native
 
         public unsafe IntPtr Scan(string pattern)
         {
-            var parts = pattern.Replace(" ", "").Chunk(2);
-            var byteMasks = parts.Select(ByteMask.From).ToArray();
+            var byteMasks = pattern
+                .Replace(" ", "")
+                .Chunk(2)
+                .Select(ByteMask.From)
+                .ToArray();
+
             var begin = (byte*)Begin.ToPointer();
             var end = (byte*)End.ToPointer();
 
             for (var buffer = begin; buffer < end; buffer++)
             {
-                if (Compare(buffer, byteMasks, byteMasks.Length))
+                if (Compare(buffer, byteMasks))
                 {
                     return new IntPtr(buffer);
                 }
