@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fuse.Compose
+namespace Fuse.Native
 {
     public class Property<T>
     {
