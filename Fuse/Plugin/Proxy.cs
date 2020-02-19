@@ -47,13 +47,16 @@ namespace Fuse.Plugin
         {
             foreach (var plugin in _plugins)
             {
+                var pluginName = plugin.GetType().Name;
+
                 try
                 {
                     plugin.OnEnable(this);
+                    Console.WriteLine($"[Proxy] Enabled {pluginName}");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[Proxy] Failed to enable {plugin.GetType().Name}:\n{ex}");
+                    Console.WriteLine($"[Proxy] Failed to enable {pluginName}:\n{ex}");
                 }
             }
         }
@@ -62,13 +65,16 @@ namespace Fuse.Plugin
         {
             foreach (var plugin in _plugins)
             {
+                var pluginName = plugin.GetType().Name;
+
                 try
                 {
                     plugin.OnEnable(this);
+                    Console.WriteLine($"[Proxy] Enabled {pluginName}");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[Proxy] Failed to disable {plugin.GetType().Name}:\n{ex}");
+                    Console.WriteLine($"[Proxy] Failed to disable {pluginName}:\n{ex}");
                 }
             }
         }

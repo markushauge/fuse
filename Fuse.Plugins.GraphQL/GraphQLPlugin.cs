@@ -24,13 +24,11 @@ namespace Fuse.Plugins.GraphQL
 
             _host = Server.Create(schemaProviders);
             _host.StartAsync().Wait();
-            Console.WriteLine($"[GraphQLPlugin] Enabled");
         }
 
         public void OnDisable(IPluginCollection plugins)
         {
             _host.StopAsync().Wait();
-            Console.WriteLine($"[GraphQLPlugin] Disabled");
         }
     }
 }
