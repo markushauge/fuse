@@ -12,7 +12,10 @@ namespace Fuse.Plugins.GraphQL
 
         public void OnEnable(IPluginCollection plugins)
         {
-            var schemaProviders = plugins.FindPlugins<ISchemaProvider>().ToArray();
+            var schemaProviders = plugins
+                .FindPlugins<IHasSchemaProviders>()
+                .SelectMany(x => x.SchemaProviders)
+                .ToArray();
 
             if (schemaProviders.Length == 0)
             {
