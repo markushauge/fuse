@@ -13,31 +13,23 @@ namespace Fuse.Extensions
         public static IntPtr Offset(this IntPtr pointer, int offset) =>
             pointer + offset;
 
-        public static unsafe byte ReadUInt8(this IntPtr pointer) =>
-            *(byte*)pointer;
+        public static unsafe T* To<T>(this IntPtr pointer) where T : unmanaged =>
+            (T*)pointer;
 
-        public static unsafe sbyte ReadInt8(this IntPtr pointer) =>
-            *(sbyte*)pointer;
+        public static unsafe T Read<T>(this IntPtr pointer) where T : unmanaged =>
+            *(T*)pointer;
 
-        public static unsafe ushort ReadUInt16(this IntPtr pointer) =>
-            *(ushort*)pointer;
+        public static unsafe T* ReadPointer<T>(this IntPtr pointer) where T : unmanaged =>
+            *(T**)pointer;
 
-        public static unsafe short ReadInt16(this IntPtr pointer) =>
-            *(short*)pointer;
+        public static unsafe void Write<T>(this IntPtr pointer, T value) where T : unmanaged
+        {
+            *(T*) pointer = value;
+        }
 
-        public static unsafe uint ReadUInt32(this IntPtr pointer) =>
-            *(uint*)pointer;
-
-        public static unsafe int ReadInt32(this IntPtr pointer) =>
-            *(int*)pointer;
-
-        public static unsafe ulong ReadUInt64(this IntPtr pointer) =>
-            *(ulong*)pointer;
-
-        public static unsafe long ReadInt64(this IntPtr pointer) =>
-            *(long*)pointer;
-
-        public static unsafe IntPtr ReadIntPtr(this IntPtr pointer) =>
-            *(IntPtr*)pointer;
+        public static unsafe void WritePointer<T>(this IntPtr pointer, T* value) where T : unmanaged
+        {
+            *(T**)pointer = value;
+        }
     }
 }

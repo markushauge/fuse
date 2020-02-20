@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,7 +34,7 @@ namespace Fuse.Plugin
         {
             foreach (var path in Directory.GetFiles(directory))
             {
-                var file = Path.GetFileName(path); 
+                var file = Path.GetFileName(path);
 
                 if (file.StartsWith("Fuse.Plugins") && file.EndsWith(".dll"))
                 {
