@@ -91,7 +91,7 @@ namespace Fuse.Injector
         {
             IterateProcessThreads(process, threadHandle =>
             {
-                while (Kernel32.ResumeThread(threadHandle) > 0);
+                Kernel32.ResumeThread(threadHandle);
             });
         }
     }
