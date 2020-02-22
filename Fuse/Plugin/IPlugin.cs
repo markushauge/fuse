@@ -1,8 +1,10 @@
-﻿namespace Fuse.Plugin
+﻿using System.Collections.Generic;
+
+namespace Fuse.Plugin
 {
     public interface IPlugin
     {
-        void OnEnable(IPluginCollection plugins);
-        void OnDisable(IPluginCollection plugins);
+        void OnEnable(IReadOnlyCollection<IPlugin> plugins);
+        void OnDisable(IReadOnlyCollection<IPlugin> plugins);
     }
 }

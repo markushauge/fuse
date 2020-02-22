@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Fuse.Plugin
 {
-    internal class Proxy : MarshalByRefObject, IPluginCollection
+    internal class Proxy : MarshalByRefObject
     {
         public static Proxy Create(AppDomain domain)
         {
@@ -51,7 +51,7 @@ namespace Fuse.Plugin
 
                 try
                 {
-                    plugin.OnEnable(this);
+                    plugin.OnEnable(_plugins);
                     Console.WriteLine($"[Proxy] Enabled {pluginName}");
                 }
                 catch (Exception ex)
@@ -69,7 +69,7 @@ namespace Fuse.Plugin
 
                 try
                 {
-                    plugin.OnEnable(this);
+                    plugin.OnEnable(_plugins);
                     Console.WriteLine($"[Proxy] Enabled {pluginName}");
                 }
                 catch (Exception ex)
@@ -78,8 +78,5 @@ namespace Fuse.Plugin
                 }
             }
         }
-
-        public T? FindPlugin<T>() where T : class => FindPlugins<T>().FirstOrDefault();
-        public IEnumerable<T> FindPlugins<T>() where T : class => _plugins.OfType<T>();
     }
 }

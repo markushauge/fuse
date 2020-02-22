@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Subscriptions;
@@ -9,8 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Fuse.Plugins.GraphQL
 {
-    public static class Server
+    public class Server : IDisposable
     {
+        private readonly IWebHost _host;
         private const string Url = "http://*:80";
 
         private static void ConfigureServices(IServiceCollection services, IEnumerable<ISchemaProvider> schemaProviders)
@@ -32,14 +34,25 @@ namespace Fuse.Plugins.GraphQL
             app.UsePlayground("/graphql", "/graphql");
         }
 
-        public static IWebHost Create(IEnumerable<ISchemaProvider> schemaProviders)
+        public static Server Create(IEnumerable<ISchemaProvider> schemaProviders) =>
+            new Server(
+                new WebHostBuilder()
+                    .UseKestrel()
+                    .UseUrls(Url)
+                    .ConfigureServices(services => ConfigureServices(services, schemaProviders))
+                    .Configure(Configure)
+                    .Build()
+            );
+
+        public Server(IWebHost host)
         {
-            return new WebHostBuilder()
-                .UseKestrel()
-                .UseUrls(Url)
-                .ConfigureServices(services => ConfigureServices(services, schemaProviders))
-                .Configure(Configure)
-                .Build();
+            _host = host;
+            _host.StartAsync().Wait();
+        }
+
+        public void Dispose()
+        {
+            _host.StopAsync().Wait();
         }
     }
 }

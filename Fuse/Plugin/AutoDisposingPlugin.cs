@@ -7,14 +7,14 @@ namespace Fuse.Plugin
     {
         private readonly ICollection<IDisposable> _disposables = new List<IDisposable>();
 
-        protected abstract void Configure(IPluginCollection plugins, ICollection<IDisposable> disposables);
+        protected abstract void Configure(IReadOnlyCollection<IPlugin> plugins, ICollection<IDisposable> disposables);
 
-        public void OnEnable(IPluginCollection plugins)
+        public void OnEnable(IReadOnlyCollection<IPlugin> plugins)
         {
             Configure(plugins, _disposables);
         }
 
-        public void OnDisable(IPluginCollection plugins)
+        public void OnDisable(IReadOnlyCollection<IPlugin> plugins)
         {
             foreach (var disposable in _disposables)
             {

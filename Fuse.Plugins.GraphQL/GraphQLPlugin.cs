@@ -1,16 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Fuse.Plugin;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Fuse.Plugins.GraphQL
 {
     // ReSharper disable once InconsistentNaming
-    public class GraphQLPlugin : IPlugin
+    public class GraphQLPlugin : AutoDisposingPlugin
     {
-        private IWebHost _host = null!;
-
-        public void OnEnable(IPluginCollection plugins)
+        protected override void Configure(IReadOnlyCollection<IPlugin> plugins, ICollection<IDisposable> disposables)
         {
             var schemaProviders = plugins
                 .FindPlugins<IHasSchemaProviders>()
@@ -22,13 +20,7 @@ namespace Fuse.Plugins.GraphQL
                 Console.WriteLine("[GraphQLPlugin] No schema providers available");
             }
 
-            _host = Server.Create(schemaProviders);
-            _host.StartAsync().Wait();
-        }
-
-        public void OnDisable(IPluginCollection plugins)
-        {
-            _host.StopAsync().Wait();
+            disposables.Add(Server.Create(schemaProviders));
         }
     }
 }
