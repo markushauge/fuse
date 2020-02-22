@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using Fuse.Extensions;
 using Fuse.Native.Win32;
+using static Fuse.Native.Win32.AllocationType;
+using static Fuse.Native.Win32.MemoryProtection;
+using static Fuse.Native.Win32.FreeType;
 
 namespace Fuse.Injector
 {
@@ -39,7 +42,7 @@ namespace Fuse.Injector
             var parameterBytes = Encoding.ASCII.GetBytes(dll + '\0');
 
             var remoteParameter = Kernel32
-                .VirtualAllocEx(process.Handle, IntPtr.Zero, (uint)parameterBytes.Length, AllocationType.Commit | AllocationType.Reserve, MemoryProtection.ReadWrite)
+                .VirtualAllocEx(process.Handle, IntPtr.Zero, (uint)parameterBytes.Length, Commit | Reserve, ReadWrite)
                 .ThrowIfZero("Failed to allocate memory in remote process");
 
             Kernel32
@@ -51,7 +54,7 @@ namespace Fuse.Injector
                 .ThrowIfZero("Failed to create remote thread");
 
             Kernel32.WaitForSingleObject(remoteThread, -1);
-            Kernel32.VirtualFreeEx(process.Handle, remoteParameter, (uint)parameterBytes.Length, FreeType.Decommit);
+            Kernel32.VirtualFreeEx(process.Handle, remoteParameter, (uint)parameterBytes.Length, Release);
             Kernel32.CloseHandle(remoteThread);
             Kernel32.FreeLibrary(moduleHandle);
         }

@@ -14,8 +14,11 @@ namespace Fuse.Native
             private static ByteMask None => new ByteMask(0x00, 0x00);
             private static ByteMask Some(byte @byte) => new ByteMask(@byte, 0xFF);
 
-            public static ByteMask From(string part) =>
+            private static ByteMask From(string part) =>
                 part == "??" ? None : Some(byte.Parse(part, NumberStyles.HexNumber));
+
+            public static IEnumerable<ByteMask> FromPattern(string pattern) =>
+                pattern.Replace(" ", "").Chunk(2).Select(From);
 
             public readonly byte Byte;
             public readonly byte Mask;
@@ -25,13 +28,19 @@ namespace Fuse.Native
                 Byte = @byte;
                 Mask = mask;
             }
+
+            public void Deconstruct(out byte @byte, out byte mask)
+            {
+                @byte = Byte;
+                mask = Mask;
+            }
         }
 
-        private static unsafe bool Compare(byte* buffer, IList<ByteMask> byteMasks)
+        private static unsafe bool Compare(byte* buffer, IEnumerable<ByteMask> byteMasks)
         {
-            for (var i = 0; i < byteMasks.Count; i++)
+            foreach (var (i, (@byte, mask)) in byteMasks.Enumerate())
             {
-                if ((buffer[i] & byteMasks[i].Mask) != byteMasks[i].Byte)
+                if ((buffer[i] & mask) != @byte)
                 {
                     return false;
                 }
@@ -54,12 +63,7 @@ namespace Fuse.Native
 
         public unsafe IntPtr Scan(string pattern)
         {
-            var byteMasks = pattern
-                .Replace(" ", "")
-                .Chunk(2)
-                .Select(ByteMask.From)
-                .ToArray();
-
+            var byteMasks = ByteMask.FromPattern(pattern).ToArray();
             var begin = (byte*)Begin.ToPointer();
             var end = (byte*)End.ToPointer();
 

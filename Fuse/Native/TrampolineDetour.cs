@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using Fuse.Extensions;
 using Fuse.Native.Win32;
 using static Fuse.Native.Win32.AllocationType;
 using static Fuse.Native.Win32.MemoryProtection;
 
 namespace Fuse.Native
 {
-    public class TrampolineDetour<T> : IDisposable
+    public class TrampolineDetour<T> : IDetour
     {
         private const int JmpSize = 0x0C;
 
@@ -16,12 +15,12 @@ namespace Fuse.Native
         private readonly IntPtr _trampoline;
         private GCHandle _handle;
         
-        public TrampolineDetour(IntPtr pointer, uint size, DetourDelegate<T> detourDelegate)
+        public TrampolineDetour(IntPtr pointer, uint size, Transform<T> detourTransform)
         {
             _pointer = pointer;
             _size = size;
             var trampolineSize = _size + JmpSize;
-            _trampoline = Kernel32.VirtualAlloc(IntPtr.Zero, trampolineSize, CommitReserve, ExecuteRead);
+            _trampoline = Kernel32.VirtualAlloc(IntPtr.Zero, trampolineSize, Commit | Reserve, ExecuteRead);
 
             using (_trampoline.Protect(trampolineSize, ReadWrite))
             {
@@ -33,7 +32,7 @@ namespace Fuse.Native
             }
 
             var original = Marshal.GetDelegateForFunctionPointer<T>(_trampoline);
-            var detour = detourDelegate(original);
+            var detour = detourTransform(original);
             _handle = GCHandle.Alloc(detour, GCHandleType.Normal);
             var detourPointer = Marshal.GetFunctionPointerForDelegate(detour);
 
