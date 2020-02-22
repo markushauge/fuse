@@ -17,7 +17,8 @@ namespace Fuse.Plugins.GraphQL
 
             if (schemaProviders.Length == 0)
             {
-                Console.WriteLine("[GraphQLPlugin] No schema providers available");
+                Console.WriteLine("[GraphQLPlugin] No schema providers available. Server will not start.");
+                return;
             }
 
             disposables.Add(Server.Create(schemaProviders));
