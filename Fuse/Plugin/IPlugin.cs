@@ -2,7 +2,7 @@
 {
     public interface IPlugin
     {
-        void OnEnable(IPluginCollection pluginManager);
-        void OnDisable(IPluginCollection pluginManager);
+        void OnEnable(IPluginCollection plugins);
+        void OnDisable(IPluginCollection plugins);
     }
 }
