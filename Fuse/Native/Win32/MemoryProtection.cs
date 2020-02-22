@@ -1,5 +1,8 @@
-﻿namespace Fuse.Native.Win32
+﻿using System;
+
+namespace Fuse.Native.Win32
 {
+    [Flags]
     public enum MemoryProtection
     {
         NoAccess = 0x01,

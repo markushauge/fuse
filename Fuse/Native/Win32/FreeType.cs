@@ -1,5 +1,8 @@
-﻿namespace Fuse.Native.Win32
+﻿using System;
+
+namespace Fuse.Native.Win32
 {
+    [Flags]
     public enum FreeType
     {
         Decommit = 0x4000,
