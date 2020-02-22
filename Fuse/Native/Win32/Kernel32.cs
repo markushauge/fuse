@@ -6,7 +6,7 @@ namespace Fuse.Native.Win32
     public static class Kernel32
     {
         [DllImport("kernel32.dll")]
-        public static extern void CopyMemory(IntPtr lpDestination, IntPtr lpSource, int dwLength);
+        public static extern void CopyMemory(IntPtr lpDestination, IntPtr lpSource, uint dwLength);
 
         [DllImport("kernel32.dll")]
         public static extern IntPtr LoadLibrary(string lpFileName);
@@ -21,28 +21,28 @@ namespace Fuse.Native.Win32
         public static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr VirtualAlloc(IntPtr lpAddress, int dwSize, AllocationType flAllocationType, MemoryProtection flProtect);
+        public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, AllocationType flAllocationType, MemoryProtection flProtect);
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, int dwSize, AllocationType flAllocationType, MemoryProtection flProtect);
+        public static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, AllocationType flAllocationType, MemoryProtection flProtect);
         
         [DllImport("kernel32.dll")]
-        public static extern bool VirtualFree(IntPtr lpAddress, int dwSize, FreeType dwFreeType);
+        public static extern bool VirtualFree(IntPtr lpAddress, uint dwSize, FreeType dwFreeType);
         
         [DllImport("kernel32.dll")]
-        public static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, int dwSize, FreeType dwFreeType);
+        public static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, FreeType dwFreeType);
 
         [DllImport("kernel32.dll")]
-        public static extern bool VirtualProtect(IntPtr lpAddress, int dwSize, MemoryProtection flNewProtect, out MemoryProtection lpflOldProtect);
+        public static extern bool VirtualProtect(IntPtr lpAddress, uint dwSize, MemoryProtection flNewProtect, out MemoryProtection lpflOldProtect);
 
         [DllImport("kernel32.dll")]
-        public static extern bool VirtualProtectEx(IntPtr hProcess, IntPtr lpAddress, int dwSize, MemoryProtection flNewProtect, out MemoryProtection lpflOldProtect);
+        public static extern bool VirtualProtectEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, MemoryProtection flNewProtect, out MemoryProtection lpflOldProtect);
 
         [DllImport("kernel32.dll")]
-        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int nSize, IntPtr lpNumberOfBytesRead);
+        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, IntPtr lpNumberOfBytesRead);
 
         [DllImport("kernel32.dll")]
-        public static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int nSize, IntPtr lpNumberOfBytesWritten);
+        public static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, IntPtr lpNumberOfBytesWritten);
 
         [DllImport("kernel32.dll")]
         public static extern IntPtr OpenThread(int dwDesiredAccess, bool bInheritHandle, int dwThreadId);

@@ -39,11 +39,11 @@ namespace Fuse.Injector
             var parameterBytes = Encoding.ASCII.GetBytes(dll + '\0');
 
             var remoteParameter = Kernel32
-                .VirtualAllocEx(process.Handle, IntPtr.Zero, parameterBytes.Length, AllocationType.Commit | AllocationType.Reserve, MemoryProtection.ReadWrite)
+                .VirtualAllocEx(process.Handle, IntPtr.Zero, (uint)parameterBytes.Length, AllocationType.Commit | AllocationType.Reserve, MemoryProtection.ReadWrite)
                 .ThrowIfZero("Failed to allocate memory in remote process");
 
             Kernel32
-                .WriteProcessMemory(process.Handle, remoteParameter, parameterBytes, parameterBytes.Length, IntPtr.Zero)
+                .WriteProcessMemory(process.Handle, remoteParameter, parameterBytes, (uint)parameterBytes.Length, IntPtr.Zero)
                 .ThrowIfFalse("Failed to write LoadLibraryA parameter to process");
 
             var remoteThread = Kernel32
@@ -51,7 +51,7 @@ namespace Fuse.Injector
                 .ThrowIfZero("Failed to create remote thread");
 
             Kernel32.WaitForSingleObject(remoteThread, -1);
-            Kernel32.VirtualFreeEx(process.Handle, remoteParameter, parameterBytes.Length, FreeType.Decommit);
+            Kernel32.VirtualFreeEx(process.Handle, remoteParameter, (uint)parameterBytes.Length, FreeType.Decommit);
             Kernel32.CloseHandle(remoteThread);
             Kernel32.FreeLibrary(moduleHandle);
         }
