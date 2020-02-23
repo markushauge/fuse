@@ -69,8 +69,8 @@ namespace Fuse.Plugin
 
                 try
                 {
-                    plugin.OnEnable(_plugins);
-                    Console.WriteLine($"[Proxy] Enabled {pluginName}");
+                    plugin.OnDisable(_plugins);
+                    Console.WriteLine($"[Proxy] Disabled {pluginName}");
                 }
                 catch (Exception ex)
                 {
