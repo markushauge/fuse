@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Fuse.Native.Win32
+namespace Fuse.Unsafe.Win32
 {
     public static class Kernel32
     {

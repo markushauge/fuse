@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using Fuse.Native.Win32;
-using static Fuse.Native.Win32.AllocationType;
-using static Fuse.Native.Win32.MemoryProtection;
+using Fuse.Unsafe.Win32;
+using static Fuse.Unsafe.Win32.AllocationType;
+using static Fuse.Unsafe.Win32.MemoryProtection;
 
-namespace Fuse.Native
+namespace Fuse.Unsafe
 {
     public class TrampolineDetour<T> : IDetour
         where T : Delegate

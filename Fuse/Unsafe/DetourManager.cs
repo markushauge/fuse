@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Fuse.Native
+namespace Fuse.Unsafe
 {
     public class DetourManager : IDisposable
     {

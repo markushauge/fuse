@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fuse.Native
+namespace Fuse.Unsafe
 {
     public interface IDetour : IDisposable
     {

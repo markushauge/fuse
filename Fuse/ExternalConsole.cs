@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
+using Fuse.Unsafe.Win32;
 using Microsoft.Win32.SafeHandles;
-using Fuse.Native.Win32;
 
 namespace Fuse
 {

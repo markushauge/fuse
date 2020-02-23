@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
-using Fuse.Native.Win32;
+using Fuse.Unsafe.Win32;
 
-namespace Fuse.Native
+namespace Fuse.Unsafe
 {
     public static class IntPtrExtensions
     {
@@ -35,9 +35,13 @@ namespace Fuse.Native
 
         public static IntPtr FollowRelative(this IntPtr pointer) =>
             pointer.Offset(pointer.Read<int>() + sizeof(int));
-
+        
         public static IDisposable Protect(this IntPtr pointer, uint size, MemoryProtection protection) =>
-            new MemoryProtectionBlock(pointer, size, protection);
+            new DisposableBlock(() =>
+            {
+                Kernel32.VirtualProtect(pointer, size, protection, out var oldProtection);
+                return () => Kernel32.VirtualProtect(pointer, size, oldProtection, out _);
+            });
 
         public static T ToDelegate<T>(this IntPtr pointer) where T : Delegate =>
             Marshal.GetDelegateForFunctionPointer<T>(pointer);

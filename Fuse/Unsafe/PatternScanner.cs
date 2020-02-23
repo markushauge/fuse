@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using Fuse.Extensions;
 
-namespace Fuse.Native
+namespace Fuse.Unsafe
 {
     public class PatternScanner
     {

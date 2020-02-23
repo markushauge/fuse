@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fuse.Native.Win32
+namespace Fuse.Unsafe.Win32
 {
     [Flags]
     public enum MemoryProtection

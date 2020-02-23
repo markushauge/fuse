@@ -3,12 +3,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using Fuse.Extensions;
-using Fuse.Native.Win32;
-using static Fuse.Native.Win32.AllocationType;
-using static Fuse.Native.Win32.MemoryProtection;
-using static Fuse.Native.Win32.FreeType;
+using Fuse.Unsafe.Win32;
+using static Fuse.Unsafe.Win32.AllocationType;
+using static Fuse.Unsafe.Win32.MemoryProtection;
+using static Fuse.Unsafe.Win32.FreeType;
 
 namespace Fuse.Injector
 {
