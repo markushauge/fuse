@@ -10,8 +10,11 @@ namespace Fuse.Native
         public static IntPtr Offset(this IntPtr pointer, int offset) =>
             pointer + offset;
 
-        public static unsafe T* To<T>(this IntPtr pointer) where T : unmanaged =>
+        public static unsafe T* As<T>(this IntPtr pointer) where T : unmanaged =>
             (T*)pointer;
+
+        public static unsafe ref T AsRef<T>(this IntPtr pointer) where T : unmanaged =>
+            ref *pointer.As<T>();
 
         public static unsafe T Read<T>(this IntPtr pointer) where T : unmanaged =>
             *(T*)pointer;
@@ -36,7 +39,7 @@ namespace Fuse.Native
         public static IDisposable Protect(this IntPtr pointer, uint size, MemoryProtection protection) =>
             new MemoryProtectionBlock(pointer, size, protection);
 
-        public static T ToDelegate<T>(this IntPtr pointer) =>
+        public static T ToDelegate<T>(this IntPtr pointer) where T : Delegate =>
             Marshal.GetDelegateForFunctionPointer<T>(pointer);
 
         public static IntPtr ToIntPtr<T>(this T @delegate) where T : Delegate =>
