@@ -31,10 +31,10 @@ namespace Fuse.Native
                     .AppendJmp(_pointer.Offset((int)_size));
             }
 
-            var original = Marshal.GetDelegateForFunctionPointer<T>(_trampoline);
+            var original = _trampoline.ToDelegate<T>();
             var detour = detourTransform(original);
             _handle = GCHandle.Alloc(detour, GCHandleType.Normal);
-            var detourPointer = Marshal.GetFunctionPointerForDelegate(detour);
+            var detourPointer = detour.ToIntPtr();
 
             using (_pointer.Protect(_size, ReadWrite))
             {

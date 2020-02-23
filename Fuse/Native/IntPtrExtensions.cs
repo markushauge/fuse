@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Fuse.Native.Win32;
 
 namespace Fuse.Native
@@ -34,5 +35,11 @@ namespace Fuse.Native
 
         public static IDisposable Protect(this IntPtr pointer, uint size, MemoryProtection protection) =>
             new MemoryProtectionBlock(pointer, size, protection);
+
+        public static T ToDelegate<T>(this IntPtr pointer) =>
+            Marshal.GetDelegateForFunctionPointer<T>(pointer);
+
+        public static IntPtr ToIntPtr<T>(this T @delegate) =>
+            Marshal.GetFunctionPointerForDelegate(@delegate);
     }
 }
