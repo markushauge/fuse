@@ -39,7 +39,7 @@ namespace Fuse.Native
         public static T ToDelegate<T>(this IntPtr pointer) =>
             Marshal.GetDelegateForFunctionPointer<T>(pointer);
 
-        public static IntPtr ToIntPtr<T>(this T @delegate) =>
+        public static IntPtr ToIntPtr<T>(this T @delegate) where T : Delegate =>
             Marshal.GetFunctionPointerForDelegate(@delegate);
     }
 }

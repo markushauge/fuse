@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using Fuse.Extensions;
 using Fuse.Native.Win32;
 using static Fuse.Native.Win32.AllocationType;
@@ -62,7 +63,7 @@ namespace Fuse.Injector
         public static void CallExport(Process process, string dll, string function)
         {
             var moduleHandle = Kernel32
-                .GetModuleHandle(dll)
+                .LoadLibrary(dll)
                 .ThrowIfZero("Failed to get module handle");
 
             var procAddress = Kernel32

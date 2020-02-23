@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net48</TargetFramework>
-        <PlatformTarget>x64</PlatformTarget>
+        <RootNamespace>Fuse.Plugins.GraphQL</RootNamespace>
         <LangVersion>8.0</LangVersion>
         <Nullable>enable</Nullable>
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>

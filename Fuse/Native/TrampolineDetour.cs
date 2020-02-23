@@ -7,6 +7,7 @@ using static Fuse.Native.Win32.MemoryProtection;
 namespace Fuse.Native
 {
     public class TrampolineDetour<T> : IDetour
+        where T : Delegate
     {
         private const int JmpSize = 0x0C;
 

@@ -8,7 +8,7 @@ namespace Fuse.Injector
 {
     public static class Program
     {
-        private const string Dll = "Fuse.dll";
+        private const string Dll = "Fuse.Loader.dll";
 
         private static Process FindOrCreateProcess(string name, IEnumerable<string> args)
         {
