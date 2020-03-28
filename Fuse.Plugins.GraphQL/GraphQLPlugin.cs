@@ -10,8 +10,9 @@ namespace Fuse.Plugins.GraphQL
     {
         protected override void Configure(IReadOnlyCollection<IPlugin> plugins, ICollection<IDisposable> disposables)
         {
+            // ReSharper disable once SuspiciousTypeConversion.Global
             var schemaProviders = plugins
-                .FindPlugins<IHasSchemaProviders>()
+                .OfType<IHasSchemaProviders>()
                 .SelectMany(x => x.SchemaProviders)
                 .ToArray();
 
