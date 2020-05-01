@@ -36,10 +36,12 @@ namespace Fuse.Unsafe
             }
         }
 
-        private static unsafe bool Compare(byte* buffer, IEnumerable<ByteMask> byteMasks)
+        private static unsafe bool Compare(byte* buffer, ByteMask[] byteMasks)
         {
-            foreach (var (i, (@byte, mask)) in byteMasks.Enumerate())
+            for (var i = 0; i < byteMasks.Length; i++)
             {
+                var (@byte, mask) = byteMasks[i];
+
                 if ((buffer[i] & mask) != @byte)
                 {
                     return false;
@@ -64,8 +66,8 @@ namespace Fuse.Unsafe
         public unsafe IntPtr Scan(string pattern)
         {
             var byteMasks = ByteMask.FromPattern(pattern).ToArray();
-            var begin = (byte*)Begin.ToPointer();
-            var end = (byte*)End.ToPointer();
+            var begin = (byte*)Begin;
+            var end = (byte*)End;
 
             for (var buffer = begin; buffer < end; buffer++)
             {
