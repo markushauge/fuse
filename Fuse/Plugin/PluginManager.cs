@@ -1,40 +1,98 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Loader;
 
 namespace Fuse.Plugin
 {
     public class PluginManager
     {
-        private static AppDomain CreateDomain() => AppDomain.CreateDomain("PluginDomain");
+        private static AssemblyLoadContext CreateContext()
+        {
+            var context = new AssemblyLoadContext(null, false);
 
+            context.Resolving += (sender, name) =>
+            {
+                return Assembly.GetExecutingAssembly();
+            };
+
+            return context;
+        }
+
+        private readonly List<IPlugin> _plugins = new List<IPlugin>();
         private readonly string _directory;
-        private AppDomain _domain;
-        private Proxy _proxy;
+        private AssemblyLoadContext _context = CreateContext();
 
         public PluginManager(string directory)
         {
             _directory = directory;
-            _domain = CreateDomain();
-            _proxy = Proxy.Create(_domain);
+        }
+
+        private void LoadPlugin(string file)
+        {
+            var type = _context
+                .LoadFromAssemblyPath(Path.GetFullPath(file))
+                .GetTypes()
+                .First(x => typeof(IPlugin).IsAssignableFrom(x));
+
+            _plugins.Add((IPlugin)Activator.CreateInstance(type)!);
         }
 
         public void LoadPlugins()
         {
-            _proxy.LoadPlugins(_directory);
-            _proxy.EnablePlugins();
+            foreach (var path in Directory.GetFiles(_directory))
+            {
+                var file = Path.GetFileName(path);
+
+                if (file.StartsWith("Fuse.Plugins") && file.EndsWith(".dll"))
+                {
+                    LoadPlugin(path);
+                }
+            }
         }
 
         public void UnloadPlugins()
         {
-            _proxy.DisablePlugins();
-            AppDomain.Unload(_domain);
-            _domain = CreateDomain();
-            _proxy = Proxy.Create(_domain);
+            _context.Unload();
+            _context = CreateContext();
         }
 
-        public void ReloadPlugins()
+        public void EnablePlugins()
         {
-            UnloadPlugins();
-            LoadPlugins();
+            foreach (var plugin in _plugins)
+            {
+                var pluginName = plugin.GetType().Name;
+
+                try
+                {
+                    plugin.OnEnable(_plugins);
+                    Console.WriteLine($"[PluginManager] Enabled {pluginName}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[PluginManager] Failed to enable {pluginName}:\n{ex}");
+                }
+            }
+        }
+
+        public void DisablePlugins()
+        {
+            foreach (var plugin in _plugins)
+            {
+                var pluginName = plugin.GetType().Name;
+
+                try
+                {
+                    plugin.OnDisable(_plugins);
+                    Console.WriteLine($"[PluginManager] Disabled {pluginName}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[PluginManager] Failed to disable {pluginName}:\n{ex}");
+                }
+            }
         }
     }
 }

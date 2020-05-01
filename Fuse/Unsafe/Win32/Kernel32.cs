@@ -5,7 +5,7 @@ namespace Fuse.Unsafe.Win32
 {
     public static class Kernel32
     {
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", EntryPoint = "RtlCopyMemory")]
         public static extern void CopyMemory(IntPtr lpDestination, IntPtr lpSource, uint dwLength);
 
         [DllImport("kernel32.dll")]

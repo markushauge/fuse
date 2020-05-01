@@ -14,6 +14,7 @@ namespace Fuse
             try
             {
                 PluginManager.LoadPlugins();
+                PluginManager.EnablePlugins();
             }
             catch (Exception ex)
             {
@@ -25,6 +26,7 @@ namespace Fuse
         {
             try
             {
+                PluginManager.DisablePlugins();
                 PluginManager.UnloadPlugins();
             }
             catch (Exception ex)
