@@ -1,13 +1,13 @@
 #define DLLEXPORT extern "C" __declspec(dllexport)
 
-using Fuse::Entry;
+using namespace Fuse;
 
 DLLEXPORT void Load()
 {
-	Entry::Load();
+    Entry::Load();
 }
 
 DLLEXPORT void Unload()
 {
-	Entry::Unload();
+    Entry::Unload();
 }

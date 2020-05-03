@@ -116,7 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="Fuse.Loader.cpp" />
+    <ClCompile Include="Exports.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fuse\Fuse.csproj">
