@@ -9,15 +9,22 @@ namespace Fuse.Plugin
 {
     public class PluginManager
     {
+        private static Assembly? OnResolving(AssemblyLoadContext context, AssemblyName name)
+        {
+            var fuse = Assembly.GetExecutingAssembly();
+
+            if (fuse.GetName().Name == name.Name)
+            {
+                return fuse;
+            }
+
+            return null;
+        }
+
         private static AssemblyLoadContext CreateContext()
         {
             var context = new AssemblyLoadContext(null, false);
-
-            context.Resolving += (sender, name) =>
-            {
-                return Assembly.GetExecutingAssembly();
-            };
-
+            context.Resolving += OnResolving;
             return context;
         }
 
