@@ -12,4 +12,7 @@
         <ProjectReference Include="..\Fuse.Loader\Fuse.Loader.vcxproj" />
         <ProjectReference Include="..\Fuse\Fuse.csproj" />
     </ItemGroup>
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="if not exist &quot;$(ProjectDir)$(OutDir)Plugins&quot; mkdir &quot;$(ProjectDir)$(OutDir)Plugins&quot;" />
+    </Target>
 </Project>
