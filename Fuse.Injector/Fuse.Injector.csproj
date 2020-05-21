@@ -9,6 +9,9 @@
         <UseWindowsForms>true</UseWindowsForms>
     </PropertyGroup>
     <ItemGroup>
+      <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20253.1" />
+    </ItemGroup>
+    <ItemGroup>
         <ProjectReference Include="..\Fuse.Loader\Fuse.Loader.vcxproj" />
         <ProjectReference Include="..\Fuse\Fuse.csproj" />
     </ItemGroup>

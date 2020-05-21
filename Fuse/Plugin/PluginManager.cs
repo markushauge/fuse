@@ -23,7 +23,7 @@ namespace Fuse.Plugin
 
         private static AssemblyLoadContext CreateContext()
         {
-            var context = new AssemblyLoadContext(null, false);
+            var context = new AssemblyLoadContext(null, true);
             context.Resolving += OnResolving;
             return context;
         }

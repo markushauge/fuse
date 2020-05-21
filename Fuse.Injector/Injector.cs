@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace Fuse.Injector
 
         private static void IterateProcessThreads(Process process, Action<IntPtr> action)
         {
-            foreach (ProcessThread processThread in process.Threads)
+            foreach (ProcessThread processThread in process.Threads.Cast<ProcessThread>())
             {
                 var threadHandle = Kernel32.OpenThread(2, false, processThread.Id);
                 action(threadHandle);

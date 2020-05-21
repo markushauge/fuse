@@ -84,7 +84,7 @@
       <AdditionalDependencies />
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(OutDir)Fuse.Loader.runtimeconfig.json" "$(SolutionDir)Fuse.Injector\bin\$(Configuration)\$(TargetFramework)" /D /Y</Command>
+      <Command>if not exist "$(SolutionDir)Fuse.Injector\bin\$(Configuration)\$(TargetFramework)\Fuse.Loader.runtimeconfig.json" xcopy "$(OutDir)Fuse.Loader.runtimeconfig.json" "$(SolutionDir)Fuse.Injector\bin\$(Configuration)\$(TargetFramework)" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -97,7 +97,7 @@
       <AdditionalDependencies />
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(OutDir)Fuse.Loader.runtimeconfig.json" "$(SolutionDir)Fuse.Injector\bin\$(Configuration)\$(TargetFramework)" /D /Y</Command>
+      <Command>if not exist "$(SolutionDir)Fuse.Injector\bin\$(Configuration)\$(TargetFramework)\Fuse.Loader.runtimeconfig.json" xcopy "$(OutDir)Fuse.Loader.runtimeconfig.json" "$(SolutionDir)Fuse.Injector\bin\$(Configuration)\$(TargetFramework)" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,7 +111,7 @@
       <AdditionalDependencies />
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(OutDir)Fuse.Loader.runtimeconfig.json" "$(SolutionDir)Fuse.Injector\bin\$(Configuration)\$(TargetFramework)" /D /Y</Command>
+      <Command>if not exist "$(SolutionDir)Fuse.Injector\bin\$(Configuration)\$(TargetFramework)\Fuse.Loader.runtimeconfig.json" xcopy "$(OutDir)Fuse.Loader.runtimeconfig.json" "$(SolutionDir)Fuse.Injector\bin\$(Configuration)\$(TargetFramework)" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -125,7 +125,7 @@
       <AdditionalDependencies />
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(OutDir)Fuse.Loader.runtimeconfig.json" "$(SolutionDir)Fuse.Injector\bin\$(Configuration)\$(TargetFramework)" /D /Y</Command>
+      <Command>if not exist "$(SolutionDir)Fuse.Injector\bin\$(Configuration)\$(TargetFramework)\Fuse.Loader.runtimeconfig.json" xcopy "$(OutDir)Fuse.Loader.runtimeconfig.json" "$(SolutionDir)Fuse.Injector\bin\$(Configuration)\$(TargetFramework)" /D</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

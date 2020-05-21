@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace Fuse.Unsafe.Win32
@@ -21,34 +22,81 @@ namespace Fuse.Unsafe.Win32
         public static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, AllocationType flAllocationType, MemoryProtection flProtect);
+        public static extern IntPtr VirtualAlloc(
+            IntPtr lpAddress,
+            uint dwSize,
+            AllocationType flAllocationType,
+            MemoryProtection flProtect
+        );
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, AllocationType flAllocationType, MemoryProtection flProtect);
+        public static extern IntPtr VirtualAllocEx(
+            IntPtr hProcess,
+            IntPtr lpAddress,
+            uint dwSize,
+            AllocationType flAllocationType,
+            MemoryProtection flProtect
+        );
         
         [DllImport("kernel32.dll")]
         public static extern bool VirtualFree(IntPtr lpAddress, uint dwSize, FreeType dwFreeType);
         
         [DllImport("kernel32.dll")]
-        public static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, FreeType dwFreeType);
+        public static extern bool VirtualFreeEx(
+            IntPtr hProcess,
+            IntPtr lpAddress,
+            uint dwSize,
+            FreeType dwFreeType
+        );
 
         [DllImport("kernel32.dll")]
-        public static extern bool VirtualProtect(IntPtr lpAddress, uint dwSize, MemoryProtection flNewProtect, out MemoryProtection lpflOldProtect);
+        public static extern bool VirtualProtect(
+            IntPtr lpAddress,
+            uint dwSize,
+            MemoryProtection flNewProtect,
+            out MemoryProtection lpflOldProtect
+        );
 
         [DllImport("kernel32.dll")]
-        public static extern bool VirtualProtectEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, MemoryProtection flNewProtect, out MemoryProtection lpflOldProtect);
+        public static extern bool VirtualProtectEx(
+            IntPtr hProcess,
+            IntPtr lpAddress,
+            uint dwSize,
+            MemoryProtection flNewProtect,
+            out MemoryProtection lpflOldProtect
+        );
 
         [DllImport("kernel32.dll")]
-        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, IntPtr lpNumberOfBytesRead);
+        public static extern bool ReadProcessMemory(
+            IntPtr hProcess,
+            IntPtr lpBaseAddress,
+            byte[] lpBuffer,
+            uint nSize,
+            IntPtr lpNumberOfBytesRead
+        );
 
         [DllImport("kernel32.dll")]
-        public static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, IntPtr lpNumberOfBytesWritten);
+        public static extern bool WriteProcessMemory(
+            IntPtr hProcess,
+            IntPtr lpBaseAddress,
+            byte[] lpBuffer,
+            uint nSize,
+            IntPtr lpNumberOfBytesWritten
+        );
 
         [DllImport("kernel32.dll")]
         public static extern IntPtr OpenThread(int dwDesiredAccess, bool bInheritHandle, int dwThreadId);
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttribute, IntPtr dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, int dwCreationFlags, IntPtr lpThreadId);
+        public static extern IntPtr CreateRemoteThread(
+            IntPtr hProcess,
+            IntPtr lpThreadAttribute,
+            IntPtr dwStackSize,
+            IntPtr lpStartAddress,
+            IntPtr lpParameter,
+            int dwCreationFlags,
+            IntPtr lpThreadId
+        );
 
         [DllImport("kernel32.dll")]
         public static extern uint ResumeThread(IntPtr hThread);
@@ -67,5 +115,23 @@ namespace Fuse.Unsafe.Win32
 
         [DllImport("kernel32.dll")]
         public static extern IntPtr GetStdHandle(StdHandleType nStdHandle);
+        
+        [DllImport("kernel32.dll")]
+        public static extern bool CreateProcess(
+            string? lpApplicationName,
+            string? lpCommandLine,
+            IntPtr lpProcessAttributes,
+            IntPtr lpThreadAttributes,
+            bool bInheritHandles,
+            ProcessCreationFlags dwCreationFlags,
+            IntPtr lpEnvironment,
+            string? lpCurrentDirectory,
+            ref StartupInfo lpStartupInfo,
+            out ProcessInformation lpProcessInformation
+        );
+
+        [Conditional("DEBUG")]
+        [DllImport("kernel32.dll")]
+        public static extern void OutputDebugString(string lpOutputString);
     }
 }
