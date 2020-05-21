@@ -16,7 +16,7 @@ namespace Fuse.Unsafe
         private readonly IntPtr _trampoline;
         private GCHandle _handle;
         
-        public TrampolineDetour(IntPtr pointer, uint size, Transform<T> detourTransform)
+        public TrampolineDetour(IntPtr pointer, uint size, Mapper<T> mapDetour)
         {
             _pointer = pointer;
             _size = size;
@@ -33,7 +33,7 @@ namespace Fuse.Unsafe
             }
 
             var original = _trampoline.ToDelegate<T>();
-            var detour = detourTransform(original);
+            var detour = mapDetour(original);
             _handle = GCHandle.Alloc(detour, GCHandleType.Normal);
             var detourPointer = detour.ToIntPtr();
 
