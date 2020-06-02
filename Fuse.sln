@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fuse.Injector", "Fuse.Injec
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fuse.Loader", "Fuse.Loader\Fuse.Loader.vcxproj", "{1CD1E234-3CCA-4E19-B43B-A22EEDC717B0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fuse.Plugins.Gw2", "..\fuse-gw2\Fuse.Plugins.Gw2\Fuse.Plugins.Gw2.csproj", "{C1582478-A765-46E7-8DFA-F1B75615150D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{FFBE929F-A386-4A38-B590-C25FDA5C18AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{D7F828BD-8409-4918-8B2B-8937474513D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,9 +59,27 @@ Global
 		{1CD1E234-3CCA-4E19-B43B-A22EEDC717B0}.Release|x64.Build.0 = Release|x64
 		{1CD1E234-3CCA-4E19-B43B-A22EEDC717B0}.Release|x86.ActiveCfg = Release|Win32
 		{1CD1E234-3CCA-4E19-B43B-A22EEDC717B0}.Release|x86.Build.0 = Release|Win32
+		{C1582478-A765-46E7-8DFA-F1B75615150D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1582478-A765-46E7-8DFA-F1B75615150D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1582478-A765-46E7-8DFA-F1B75615150D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C1582478-A765-46E7-8DFA-F1B75615150D}.Debug|x64.Build.0 = Debug|Any CPU
+		{C1582478-A765-46E7-8DFA-F1B75615150D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C1582478-A765-46E7-8DFA-F1B75615150D}.Debug|x86.Build.0 = Debug|Any CPU
+		{C1582478-A765-46E7-8DFA-F1B75615150D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1582478-A765-46E7-8DFA-F1B75615150D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1582478-A765-46E7-8DFA-F1B75615150D}.Release|x64.ActiveCfg = Release|Any CPU
+		{C1582478-A765-46E7-8DFA-F1B75615150D}.Release|x64.Build.0 = Release|Any CPU
+		{C1582478-A765-46E7-8DFA-F1B75615150D}.Release|x86.ActiveCfg = Release|Any CPU
+		{C1582478-A765-46E7-8DFA-F1B75615150D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{55FF634D-B445-45D0-8BA3-EAA9CB6FC6A3} = {FFBE929F-A386-4A38-B590-C25FDA5C18AF}
+		{37277EDF-5013-42A6-B069-3E002BCB4232} = {FFBE929F-A386-4A38-B590-C25FDA5C18AF}
+		{1CD1E234-3CCA-4E19-B43B-A22EEDC717B0} = {FFBE929F-A386-4A38-B590-C25FDA5C18AF}
+		{C1582478-A765-46E7-8DFA-F1B75615150D} = {D7F828BD-8409-4918-8B2B-8937474513D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0ACD5402-ECB5-4671-AC5E-9E9C3BFD2AFC}
