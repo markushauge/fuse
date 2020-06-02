@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace Fuse.Plugin
                 return fuse;
             }
 
-            return null;
+            return context.LoadFromAssemblyPath(Path.GetFullPath($"Plugins/{name.Name}.dll"));
         }
 
         private static AssemblyLoadContext CreateContext()
