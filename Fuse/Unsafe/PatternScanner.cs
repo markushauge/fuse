@@ -63,7 +63,9 @@ namespace Fuse.Unsafe
             End = end;
         }
 
-        public unsafe IntPtr Scan(string pattern)
+        public IntPtr Scan(string pattern) => Scan(pattern, 0);
+
+        public unsafe IntPtr Scan(string pattern, int offset)
         {
             var byteMasks = ByteMask.FromPattern(pattern).ToArray();
             var begin = (byte*)Begin;
@@ -73,13 +75,11 @@ namespace Fuse.Unsafe
             {
                 if (Compare(buffer, byteMasks))
                 {
-                    return new IntPtr(buffer);
+                    return new IntPtr(buffer) + offset;
                 }
             }
 
             return IntPtr.Zero;
         }
-
-        public IntPtr Scan(string pattern, int offset) => Scan(pattern) + offset;
     }
 }
