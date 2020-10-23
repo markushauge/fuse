@@ -16,12 +16,12 @@ namespace Fuse.Injector
         private static ProcessModule? GetModule(Process process, string dll) =>
             process
                 .Modules
-                .Cast<ProcessModule>()
+                .OfType<ProcessModule>()
                 .FirstOrDefault(module => Path.GetFileName(module.FileName) == dll);
 
         private static void IterateProcessThreads(Process process, Action<IntPtr> action)
         {
-            foreach (ProcessThread processThread in process.Threads.Cast<ProcessThread>())
+            foreach (ProcessThread processThread in process.Threads.OfType<ProcessThread>())
             {
                 var threadHandle = Kernel32.OpenThread(2, false, processThread.Id);
                 action(threadHandle);
