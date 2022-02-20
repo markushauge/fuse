@@ -9,7 +9,7 @@ namespace Fuse.Unsafe
     public class TrampolineDetour<T> : IDetour
         where T : Delegate
     {
-        private const int JmpSize = 0x0C;
+        private const int JmpSize = 0x0E;
 
         private readonly IntPtr _pointer;
         private readonly uint _size;
@@ -29,7 +29,7 @@ namespace Fuse.Unsafe
 
                 _trampoline
                     .Offset((int)_size)
-                    .AppendJmp(_pointer.Offset((int)_size));
+                    .AppendJmp2(_pointer.Offset((int)_size));
             }
 
             var original = _trampoline.ToDelegate<T>();
@@ -40,7 +40,7 @@ namespace Fuse.Unsafe
             using (_pointer.Protect(_size, ReadWrite))
             {
                 _pointer
-                    .AppendJmp(detourPointer)
+                    .AppendJmp2(detourPointer)
                     .AppendNop((int)_size - JmpSize);
             }
         }
